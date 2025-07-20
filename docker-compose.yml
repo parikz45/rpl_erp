@@ -1,0 +1,19 @@
+services:
+  client-web:
+    build:
+      context: .
+      dockerfile: ./apps/client-web/Dockerfile
+    ports:
+      - "3000:3000"
+    environment:
+      - NODE_ENV=production
+      - NEXT_TELEMETRY_DISABLED=1
+    restart: unless-stopped
+
+
+
+  # server:
+  #   build: .
+  #   ports:
+  #     - "8080:8000"
+
