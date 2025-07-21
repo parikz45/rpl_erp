@@ -1,7 +1,12 @@
 import createApp from "./app.ts";
+import dotenv from "dotenv";
+
+dotenv.config();
+
+const { PORT } = process.env;
 
 const app = createApp();
 
-app.listen({ port: 8080 }, () => {
-    console.log("Server is running on port 8080");
+app.listen({ port: PORT }, () => {
+    console.log(`Server listening on port ${PORT}`);
 });
