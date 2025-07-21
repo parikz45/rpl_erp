@@ -10,3 +10,6 @@ build
 .eslintcache
 .DS_Store
 next-env.d.ts
+Dockerfile*
+docker-compose*
+compose*

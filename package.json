@@ -6,6 +6,11 @@
     "scripts": {
         "dev:web": "pnpm --filter @rpl-erp/client-web dev",
         "dev:server": "pnpm --filter @rpl-erp/server dev",
+        "build:web": "pnpm --filter @rpl-erp/client-web build",
+        "build:server": "pnpm --filter @rpl-erp/server build",
+        "test": "pnpm --filter @rpl-erp/server test",
+        "docker:dev": "docker compose --profile dev up --watch",
+        "docker:prod": "docker compose --profile prod up",
         "lint": "eslint --cache --fix .",
         "format": "prettier --write --ignore-unknown .",
         "prepare": "husky install"

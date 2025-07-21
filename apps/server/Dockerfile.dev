@@ -1,0 +1,16 @@
+FROM node:24-alpine AS base
+
+RUN apk add --no-cache libc6-compat
+RUN corepack enable pnpm
+
+RUN addgroup --system --gid 1001 nodejs
+RUN adduser --system --uid 1001 expressjs 
+
+WORKDIR /app
+COPY --chown=expressjs:nodejs . .
+
+RUN --mount=type=cache,target=/pnpm/store \
+    pnpm install --frozen-lockfile
+
+USER expressjs
+CMD ["pnpm", "dev:server"]

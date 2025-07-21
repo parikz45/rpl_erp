@@ -1,19 +1,121 @@
 services:
-  client-web:
+  # development containers
+  dev-client-web:
+    profiles:
+      - dev
     build:
       context: .
-      dockerfile: ./apps/client-web/Dockerfile
+      dockerfile: ./apps/client-web/Dockerfile.dev
+    env_file:
+      - ./apps/client-web/.env.dev
     ports:
-      - "3000:3000"
-    environment:
-      - NODE_ENV=production
-      - NEXT_TELEMETRY_DISABLED=1
+      - "${DEV_CLIENT_WEB_PORT}:${DEV_CLIENT_WEB_PORT}"
     restart: unless-stopped
+    develop:
+      watch:
+          - action: sync
+            path: ./apps/client-web
+            target: /app/apps/client-web
+            ignore:
+              - .next/
+          - action: rebuild
+            path: package.json
+    volumes:
+      - ./apps/client-web/.next:/app/apps/client-web/.next
+      - /app/node_modules
+    networks:
+      - dev-network
+    depends_on:
+      - dev-server
+  dev-server:
+    profiles:
+      - dev
+    user: root
+    build:
+      context: .
+      dockerfile: ./apps/server/Dockerfile.dev
+    env_file:
+      - ./apps/server/.env.dev
+    ports:
+      - "${DEV_SERVER_PORT}:${DEV_SERVER_PORT}"
+    restart: unless-stopped
+    develop:
+      watch:
+          - action: sync
+            path: ./apps/server
+            target: /app/apps/server
+            ignore:
+              - node_modules/
+              - dist/
+          - action: rebuild
+            path: package.json
+    networks:
+      - dev-network
+    depends_on:
+      - dev-db
+  dev-db:
+    profiles:
+      - dev
+    image: postgres
+    env_file:
+      - ./apps/server/.env.dev
+    restart: unless-stopped
+    volumes:
+      - dev-db-data:/var/lib/postgresql/data
+    networks:
+      - dev-network
 
+  # production containers
 
+  prod-client-web:
+    profiles:
+      - prod
+    build:
+      context: .
+      dockerfile: ./apps/client-web/Dockerfile.prod
+    env_file:
+      - ./apps/client-web/.env.prod
+    ports:
+      - "${PROD_CLIENT_WEB_PORT}:${PROD_CLIENT_WEB_PORT}"
+    networks:
+      - prod-network
+    depends_on:
+      - prod-server
+  prod-server:
+    profiles:
+      - prod
+    build:
+      context: .
+      dockerfile: ./apps/server/Dockerfile.prod
+    env_file:
+      - ./apps/server/.env.prod
+    ports:
+      - "${PROD_SERVER_PORT}:${PROD_SERVER_PORT}"
+    networks:
+      - prod-network
+    depends_on:
+      - prod-db
+  prod-db:
+    profiles:
+      - prod
+    image: postgres
+    env_file:
+      - ./apps/server/.env.prod
+    volumes:
+      - prod-db-data:/var/lib/postgresql/data
+    networks:
+      - prod-network
 
-  # server:
-  #   build: .
-  #   ports:
-  #     - "8080:8000"
+volumes:
+  dev-db-data:
+  test-db-data:
+  prod-db-data:
+
+networks:
+  dev-network:
+    driver: bridge
+  test-network:
+    driver: bridge
+  prod-network:
+    driver: bridge
 
