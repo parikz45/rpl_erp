@@ -17,12 +17,12 @@ services:
             path: ./apps/client-web
             target: /app/apps/client-web
             ignore:
+              - node_modules/
               - .next/
           - action: rebuild
             path: package.json
     volumes:
       - ./apps/client-web/.next:/app/apps/client-web/.next
-      - /app/node_modules
     networks:
       - dev-network
     depends_on:
