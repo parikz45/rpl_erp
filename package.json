@@ -9,6 +9,7 @@
         "dev:server": "pnpm --filter @rpl-erp/server start:dev",
         "build:web": "pnpm --filter @rpl-erp/client-web build",
         "build:server": "pnpm --filter @rpl-erp/server build",
+        "start:web": "pnpm --filter @rpl-erp/client-web start",
         "test:server": "pnpm --filter @rpl-erp/server test",
         "docker:dev": "docker compose --profile dev up",
         "docker:dev-web": "docker compose --profile dev up --no-deps dev-client-web",
