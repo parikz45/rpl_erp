@@ -5,11 +5,12 @@ import { defineConfig, globalIgnores } from "eslint/config";
 export default defineConfig([
     globalIgnores([
         "**/*.next",
-        "dist/**",
-        "apps/**/eslint.config.mjs",
-        "apps/**/postcss.config.mjs",
+        "**/dist/**",
         "**/*.config.mjs",
         "**/*.js",
+        "**/node_modules/**",
+        "**/tsconfig.json",
+        "**/tsconfig.*.json",
     ]),
     {
         languageOptions: {
