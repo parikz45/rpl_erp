@@ -7,16 +7,16 @@ ENV PATH="$PNPM_HOME:$PATH"
 RUN corepack enable pnpm
 
 RUN addgroup --system --gid 1001 nodejs
-RUN adduser --system --uid 1001 expressjs 
+RUN adduser --system --uid 1001 nestjs 
 
 WORKDIR /app
 
-COPY --chown=expressjs:nodejs package.json pnpm-lock.yaml ./pnpm-workspace.yaml .
-COPY --chown=expressjs:nodejs ./apps/server/package.json ./apps/server/package.json
+COPY --chown=nestjs:nodejs package.json pnpm-lock.yaml ./pnpm-workspace.yaml .
+COPY --chown=nestjs:nodejs ./apps/server/package.json ./apps/server/package.json
 
 RUN --mount=type=cache,id=pnpm,target=/pnpm/store pnpm install --frozen-lockfile
 
-COPY --chown=expressjs:nodejs . .
+COPY --chown=nestjs:nodejs . .
 
-USER expressjs
+USER nestjs
 CMD ["pnpm", "dev:server"]
