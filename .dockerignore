@@ -6,11 +6,14 @@ node_modules
 dist
 **/dist
 .next
+**/.next
 out
+**/out
 build
+**/build
 .env*
 .eslintcache
-.DS_Store
+**/.DS_Store
 next-env.d.ts
 Dockerfile*
 docker-compose*
