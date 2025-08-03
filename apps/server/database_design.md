@@ -2,6 +2,8 @@
 
 ## Phase I
 
+- PS: visibility tables may be redundant and need to be merged for simplicity
+
 ### Models
 
 - authentication and authorization
@@ -10,18 +12,17 @@
     3. permissions
     4. roles
 - notifications
-    1. notification (id, content, priority, cooldown, timestamps, category, sender)
-    2. notification_attachments (id, notification_id, attachment_id)
-    3. notification_visibility_user (id, notification_id, user_id, role_id)
-    4. notification_visibility_role (id, notification_id, role_id)
-    5. notification_read_receipts (id, notification_id, user_id)
+    1. notification
+    2. notification_attachments
+    3. notification_visibility_user
+    4. notification_visibility_role
+    5. notification_read_receipts
+    6. notification_priority
 - documents
-    1. document (id, type, title, createdBy, timestamps)
-    2. document_visibility_user (id, document_id, user_id)
-    3. document_visibility_role (id, document_id, role_id)
-    4. document_templates (id, document_id, timestamps)
-
-1.  sender, priority, message, attachments, read receipts, cooldowns, timestamps, contact details (email, phone), category
+    1. document
+    2. document_visibility_user
+    3. document_visibility_role
+    4. document_templates
 
 ### User Schema
 
@@ -71,3 +72,92 @@
 | user_id  | UUID    | Foreign key to user |
 | role_id  | UUID    | Foreign key to role |
 | priority | Integer | Priority of role    |
+
+### Notification Schema
+
+| Field        | Type    | Description              |
+| ------------ | ------- | ------------------------ |
+| id           | UUID    | Unique ID                |
+| content      | String  | Notification content     |
+| priority     | UUID    | Foreign key to priority  |
+| cooldown     | Integer | Cooldown of notification |
+| category     | String  | Category of notification |
+| sender       | String  | Sender of notification   |
+| scheduled_at | Date    | Scheduled date           |
+| created_at   | Date    | Creation date            |
+| updated_at   | Date    | Update date              |
+
+### Notification Attachment Schema
+
+| Field        | Type | Description                 |
+| ------------ | ---- | --------------------------- |
+| id           | UUID | Unique ID                   |
+| notification | UUID | Foreign key to notification |
+| attachment   | UUID | Foreign key to document     |
+
+### Notification Visibility User Schema
+
+| Field        | Type | Description                 |
+| ------------ | ---- | --------------------------- |
+| id           | UUID | Unique ID                   |
+| notification | UUID | Foreign key to notification |
+| user         | UUID | Foreign key to user         |
+
+### Notification Visibility Role Schema
+
+| Field        | Type | Description                 |
+| ------------ | ---- | --------------------------- |
+| id           | UUID | Unique ID                   |
+| notification | UUID | Foreign key to notification |
+| role         | UUID | Foreign key to role         |
+
+### Notification Read Receipt Schema
+
+| Field        | Type | Description                 |
+| ------------ | ---- | --------------------------- |
+| id           | UUID | Unique ID                   |
+| notification | UUID | Foreign key to notification |
+| user         | UUID | Foreign key to user         |
+| read_at      | Date | Read date                   |
+
+### Notification Priority Schema
+
+| Field     | Type     | Description               |
+| --------- | -------- | ------------------------- |
+| id        | UUID     | Unique ID                 |
+| threshold | Interval | Threshold of notification |
+
+### Document Schema
+
+| Field      | Type   | Description         |
+| ---------- | ------ | ------------------- |
+| id         | UUID   | Unique ID           |
+| type       | String | Document type       |
+| title      | String | Document title      |
+| created_by | UUID   | Foreign key to user |
+| created_at | Date   | Creation date       |
+| updated_at | Date   | Update date         |
+
+### Document Visibility User Schema
+
+| Field    | Type | Description             |
+| -------- | ---- | ----------------------- |
+| id       | UUID | Unique ID               |
+| document | UUID | Foreign key to document |
+| user     | UUID | Foreign key to user     |
+
+### Document Visibility Role Schema
+
+| Field    | Type | Description             |
+| -------- | ---- | ----------------------- |
+| id       | UUID | Unique ID               |
+| document | UUID | Foreign key to document |
+| role     | UUID | Foreign key to role     |
+
+### Document Template Schema
+
+| Field    | Type | Description             |
+| -------- | ---- | ----------------------- |
+| id       | UUID | Unique ID               |
+| document | UUID | Foreign key to document |
+| template | UUID | Foreign key to document |
