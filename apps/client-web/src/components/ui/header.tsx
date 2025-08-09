@@ -1,7 +1,7 @@
 import React from "react";
 import { Button } from "@client-web/components/ui/button";
 import headerLogo from "./header-logo.png";
-
+import Image from "next/image";
 interface HeaderProps {
     title?: string;
     userName?: string;
@@ -19,10 +19,12 @@ export default function Header({
         <header className="w-full h-full flex items-center justify-between bg-[#2d2d2d] px-4 py-2 text-white shadow-md">
             {/* Left: Logo + Title */}
             <div className="flex items-center gap-4">
-                <img
+                <Image
                     src={headerLogo.src}
                     alt="RPL Logo"
-                    className="h-[76px] w-[84px] rounded absolute left-[13px] top-[23px]"
+                    width={84}
+                    height={76}
+                    className="rounded absolute left-[13px] top-[23px]"
                 />
                 <div className="font-serif text-[64px] font-bold h-[56px] absolute left-[110px] top-[18px]">
                     RPL
