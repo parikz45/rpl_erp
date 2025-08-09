@@ -1,6 +1,6 @@
-import NotificationsModuleLayout from "../NotificationsModuleLayout";
+import NotificationsModuleLayout from "../DocumentsModuleLayout";
 
-export default function Audit_DashboardPage() {
+export default function AccessControlPage() {
     return (
         <NotificationsModuleLayout>
             {/* Your notifications page main content */}

@@ -8,7 +8,14 @@ export default function Home() {
 
     return (
         <div>
-            <h1>Home</h1>
+            <Button
+                onClick={() =>
+                    router.push("/Authentication_Module/user_session")
+                }
+                className="w-[500px] items-center"
+            >
+                Authentication Module
+            </Button>
             <Button
                 onClick={() =>
                     router.push("/Notifications_Module/notifications")
@@ -16,6 +23,12 @@ export default function Home() {
                 className="w-[500px] items-center"
             >
                 Notification Module
+            </Button>
+            <Button
+                onClick={() => router.push("/Documents_Module/documents")}
+                className="w-[500px] items-center"
+            >
+                Documents Module
             </Button>
         </div>
     );

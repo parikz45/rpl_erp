@@ -2,6 +2,7 @@ import React from "react";
 import { Button } from "@client-web/components/ui/button";
 import headerLogo from "./header-logo.png";
 import Image from "next/image";
+
 interface HeaderProps {
     title?: string;
     userName?: string;
@@ -16,35 +17,51 @@ export default function Header({
     onLogout,
 }: HeaderProps) {
     return (
-        <header className="w-full h-full flex items-center justify-between bg-[#2d2d2d] px-4 py-2 text-white shadow-md">
-            {/* Left: Logo + Title */}
-            <div className="flex items-center gap-4">
-                <Image
-                    src={headerLogo.src}
-                    alt="RPL Logo"
-                    width={84}
-                    height={76}
-                    className="rounded absolute left-[13px] top-[23px]"
-                />
-                <div className="font-serif text-[64px] font-bold h-[56px] absolute left-[110px] top-[18px]">
+        <header
+            className="w-full flex items-center justify-between bg-[#2d2d2d] px-6 text-white shadow-md relative"
+            style={{
+                height: "var(--header-height)",
+                borderTopLeftRadius: "var(--border-radius)",
+                borderTopRightRadius: "var(--border-radius)",
+            }}
+        >
+            <div className="flex items-center gap-5">
+                <div
+                    style={{
+                        width: "var(--logo-size)",
+                        height: "var(--logo-size)",
+                        position: "relative",
+                    }}
+                >
+                    <Image
+                        src={headerLogo}
+                        alt="RPL Logo"
+                        fill // this makes image fill the parent div
+                        style={{ objectFit: "contain" }}
+                        className="rounded"
+                    />
+                </div>
+
+                <div
+                    className="font-serif font-bold leading-none select-none border-r-4 pr-7"
+                    style={{ fontSize: "var(--logo-font-size)" }}
+                >
                     RPL
                 </div>
-                <div className="font-serif text-[36px] font-bold h-[42px] absolute left-[312px] top-[40px]">
+                <div className="ml-10 font-serif text-[36px] font-bold leading-none">
                     {title}
                 </div>
             </div>
 
-            {/* Right: Profile + Logout */}
             <div className="flex items-center gap-4">
-                <div className="h-[78px] w-[254px] absolute left-[983px] top-[23px] flex items-center gap-2 bg-[#464c4f] rounded-md px-3 py-1">
+                <div className="flex items-center gap-2 border-0 p-3 bg-gray-500 rounded-xl h-[45px]">
                     <div className="bg-cyan-400 text-black font-bold w-8 h-8 rounded-full flex items-center justify-center">
                         {userInitials}
                     </div>
                     <div className="text-sm font-medium">{userName}</div>
                 </div>
-
                 <Button
-                    className="font-serif text-[24px] font-bold h-[56px] absolute left-[1260px] top-[32px]"
+                    className="font-serif text-[20px] h-[30px]"
                     variant="destructive"
                     size="sm"
                     onClick={onLogout}
