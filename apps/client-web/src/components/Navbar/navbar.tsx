@@ -2,7 +2,7 @@ import { Button } from "@client-web/components/ui/button";
 
 export default function Navbar() {
     return (
-        <div className="px-4  bg-[#2D2D2D] flex items-center justify-between border border-[#ccc]">
+        <div className="px-4 bg-[#2D2D2D] flex items-center justify-between border border-[#ccc]">
 
             {/* Left: Logo */}
             <div className="flex items-center w-57.5 gap-3 pr-4 border-r border-[#ccc]">
