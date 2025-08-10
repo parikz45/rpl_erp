@@ -122,6 +122,38 @@
     --sidebar-border: oklch(1 0 0 / 10%);
     --sidebar-ring: oklch(0.552 0.016 285.938);
 }
+@media (max-width: 1024px) {
+    :root {
+        --sidebar-width: 205px;
+        --content-width: 750px;
+        --logo-size: 40px;
+        --logo-font-size: 40px;
+        --sidebar-element-gap: 20px;
+        --content-height: 750px;
+    }
+}
+
+@media (max-width: 768px) {
+    :root {
+        --sidebar-width: 190px;
+        --content-width: 100%;
+        --logo-size: 35px;
+        --logo-font-size: 35px;
+        --content-gap-vertical: 20px;
+        --sidebar-element-gap: 15px;
+    }
+}
+
+@media (max-width: 480px) {
+    :root {
+        --sidebar-width: 140px;
+        --content-gap-vertical: 15px;
+        --logo-size: 30px;
+        --logo-font-size: 30px;
+        --sidebar-element-gap: 10px;
+        --content-width: 100%;
+    }
+}
 
 @layer base {
     * {
